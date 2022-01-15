@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  dev:
+    container_name: juleb_task_dev
+    image: juleb-task-dev:1.0.0
+    build:
+      context: .
+      target: development
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    networks:
+      - shared-network
+    command: npm run start:debug  
+
+  prod:
+    container_name: juleb_task_prod
+    image: juleb-task-prod:1.0.0
+    build:
+      context: .
+      target: production
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    networks:
+      - shared-network
+    command: npm run start:prod
+      
+
+networks:
+  shared-network:
+
